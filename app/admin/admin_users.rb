@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register AdminUser do
-  menu parent: "Administrative"
+  menu parent: "_Admin"
 
   permit_params :email, :password, :password_confirmation
 
@@ -35,9 +35,9 @@ ActiveAdmin.register AdminUser do
   index do
     id_column
     column :email
-    column :current_sign_in_at
-    column :sign_in_count
-    column :created_at
+    column "connexion le", :current_sign_in_at
+    column "nbr connexion", :sign_in_count
+    column "créé le", :created_at
     actions
   end
 
