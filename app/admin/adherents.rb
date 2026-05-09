@@ -2,6 +2,8 @@ ActiveAdmin.register Adherent do
   # Specify parameters which should be permitted for assignment
   permit_params :nom_ville, :nom_contact, :email, :memo
 
+  #menu label: "Adhérents"
+
   # or consider:
   #
   # permit_params do
