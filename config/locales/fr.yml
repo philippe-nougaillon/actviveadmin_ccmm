@@ -110,7 +110,7 @@ fr:
       per_page: 'Par page '
       previous: Précédent
       truncate: "&hellip;"
-    powered_by: Propulsé par %{active_admin} %{version}
+    powered_by: Propulsé par AIKKU #%{active_admin} %{version}
     previous: Précédent
     scopes:
       all: Tout
