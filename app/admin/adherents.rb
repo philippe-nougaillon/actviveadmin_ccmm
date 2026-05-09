@@ -31,9 +31,9 @@ ActiveAdmin.register Adherent do
     column :nom_ville
     column :nom_contact
     column :email
-    column :memo
-    column :created_at
-    column :updated_at
+    #column :memo
+    #column :created_at
+    column "modifié le", :updated_at
     actions
   end
 
@@ -45,8 +45,8 @@ ActiveAdmin.register Adherent do
       row :nom_contact
       row :email
       row :memo
-      row :created_at
-      row :updated_at
+      row "créé le", :created_at
+      row "modifié le", :updated_at
     end
   end
 
