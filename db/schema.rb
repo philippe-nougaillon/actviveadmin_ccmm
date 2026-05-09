@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_09_192004) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_09_193645) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer "author_id"
     t.string "author_type"
@@ -60,6 +60,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_09_192004) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "cotation_lignes", force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "cotation_id", null: false
+    t.datetime "created_at", null: false
+    t.string "intitulé"
+    t.decimal "prix_ht", precision: 8, scale: 2
+    t.integer "qté"
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_cotation_lignes_on_article_id"
+    t.index ["cotation_id"], name: "index_cotation_lignes_on_cotation_id"
+  end
+
   create_table "cotations", force: :cascade do |t|
     t.integer "adherent_id", null: false
     t.datetime "created_at", null: false
@@ -71,5 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_09_192004) do
     t.index ["adherent_id"], name: "index_cotations_on_adherent_id"
   end
 
+  add_foreign_key "cotation_lignes", "articles"
+  add_foreign_key "cotation_lignes", "cotations"
   add_foreign_key "cotations", "adherents"
 end
