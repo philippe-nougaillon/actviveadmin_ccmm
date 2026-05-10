@@ -32,10 +32,12 @@ ActiveAdmin.register Cotation do
     selectable_column
     id_column
     column :ref
+    column :statut do |c| 
+      status_tag c.statut
+    end
     column :adherent
     column :intitulé
-    column :statut
-    # column :mémo
+    column :mémo
     column :total_ht
     # column :created_at
     column "modifiée le", :updated_at
@@ -47,6 +49,9 @@ ActiveAdmin.register Cotation do
     attributes_table_for(resource) do
       row :id
       row :ref
+      row :statut do
+        status_tag resource.statut
+      end
       row :adherent
       row :intitulé
       row :mémo
