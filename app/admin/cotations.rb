@@ -18,6 +18,7 @@ ActiveAdmin.register Cotation do
   filter :id
   filter :ref
   filter :adherent
+  filter :statut
   filter :intitulé
   filter :mémo
   filter :total_ht
@@ -31,6 +32,7 @@ ActiveAdmin.register Cotation do
     column :ref
     column :adherent
     column :intitulé
+    column :statut
     # column :mémo
     column :total_ht
     # column :created_at
@@ -69,10 +71,11 @@ ActiveAdmin.register Cotation do
       f.input :ref
       f.input :adherent, member_label: :email
       f.input :intitulé
-      f.input :mémo
       f.input :total_ht
+      f.input :statut
+      f.input :mémo
       
-      f.inputs 'Lignes' do
+      f.inputs "Détails" do
       f.has_many :cotation_lignes, heading: false, allow_destroy: true, new_record: true do |a|
         a.input :article, member_label: :nom
         a.input :intitulé

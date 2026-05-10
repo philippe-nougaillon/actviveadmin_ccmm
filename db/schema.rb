@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_09_193645) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_10_050253) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer "author_id"
     t.string "author_type"
@@ -78,6 +78,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_09_193645) do
     t.string "intitulé"
     t.text "mémo"
     t.string "ref"
+    t.integer "statut", default: 0
     t.decimal "total_ht", precision: 8, scale: 2
     t.datetime "updated_at", null: false
     t.index ["adherent_id"], name: "index_cotations_on_adherent_id"
