@@ -49,6 +49,16 @@ ActiveAdmin.register Cotation do
       row :total_ht
       row "crée le", :created_at
       row "modifiée le", :updated_at
+      
+      panel "Détails" do
+      table_for cotation.cotation_lignes do
+        column :id
+        column :article
+        column :intitulé
+        column :qté
+        column :prix_ht
+      end
+    end
     end
   end
 
