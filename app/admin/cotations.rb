@@ -3,6 +3,8 @@ ActiveAdmin.register Cotation do
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, 
         cotation_lignes_attributes: [:id, :cotation_id, :article_id, :intitulé, :qté, :prix_ht, :_destroy]
 
+  includes :cotation_lignes
+
   # or consider:
   #
   # permit_params do
@@ -69,7 +71,7 @@ ActiveAdmin.register Cotation do
     f.semantic_errors(*f.object.errors.attribute_names)
     f.inputs do
       f.input :ref
-      f.input :adherent, member_label: :email
+      f.input :adherent
       f.input :intitulé
       f.input :total_ht
       f.input :statut
@@ -77,7 +79,7 @@ ActiveAdmin.register Cotation do
       
       f.inputs "Détails" do
       f.has_many :cotation_lignes, heading: false, allow_destroy: true, new_record: true do |a|
-        a.input :article, member_label: :nom
+        a.input :article
         a.input :intitulé
         a.input :qté
         a.input :prix_ht
