@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_11_172600) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_11_193849) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer "author_id"
     t.string "author_type"
@@ -76,6 +76,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_11_172600) do
   create_table "cotations", force: :cascade do |t|
     t.integer "adherent_id", null: false
     t.datetime "created_at", null: false
+    t.date "date_livraison_souhaitée"
     t.string "intitulé"
     t.text "mémo"
     t.string "ref"

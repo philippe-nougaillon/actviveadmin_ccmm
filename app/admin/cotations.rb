@@ -2,7 +2,7 @@ ActiveAdmin.register Cotation do
   menu label: "Cotations / Devis"
 
   # Specify parameters which should be permitted for assignment
-  permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut,
+  permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut, :date_livraison_souhaitée,
         cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
 
   # or consider:
@@ -48,6 +48,7 @@ ActiveAdmin.register Cotation do
     end
     column :adherent, sortable: 'adherent.nom_ville'
     column :intitulé
+    column :date_livraison_souhaitée
     column :total_ht
     column "modifiée le", :updated_at
     actions
@@ -64,6 +65,7 @@ ActiveAdmin.register Cotation do
       row :adherent
       row :intitulé
       row :mémo
+      row :date_livraison_souhaitée
       row :total_ht
       row "créée le", :created_at
       row "modifiée le", :updated_at
@@ -90,6 +92,7 @@ ActiveAdmin.register Cotation do
       f.input :intitulé
       f.input :statut
       f.input :mémo
+      f.input :date_livraison_souhaitée
       f.input :total_ht
       
       f.inputs "Détails" do
