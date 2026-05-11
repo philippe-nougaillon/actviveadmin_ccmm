@@ -23,6 +23,7 @@ ActiveAdmin.register Cotation do
   # For security, limit the actions that should be available
   actions :all, except: [:destroy]
 
+  # allow sorting scoped collection (adhérent)
   controller do
     def scoped_collection
       super.includes :adherent # prevents N+1 queries to your database
@@ -30,11 +31,11 @@ ActiveAdmin.register Cotation do
   end
 
   scope :all, default: true
-  scope("Créé") { |scope| scope.where(statut: 'créé')}
-  scope("Envoyé") { |scope| scope.where(statut: 'envoyé')}
-  scope("Validé") { |scope| scope.where(statut: 'validé')}
-  scope("Refusé") { |scope| scope.where(statut: 'refusé')}
-  scope("Archivé") { |scope| scope.where(statut: 'archivé')}
+  scope("Créé", group: :statut) { |scope| scope.where(statut: 'créé')}
+  scope("Envoyé", group: :statut) { |scope| scope.where(statut: 'envoyé')}
+  scope("Validé", group: :statut) { |scope| scope.where(statut: 'validé')}
+  scope("Refusé", group: :statut) { |scope| scope.where(statut: 'refusé')}
+  scope("Archivé", group: :statut) { |scope| scope.where(statut: 'archivé')}
 
   # Add or remove filters to toggle their visibility
   filter :id
@@ -45,6 +46,7 @@ ActiveAdmin.register Cotation do
   filter :created_at, label: "Créée le"
   filter :updated_at, label: "Modifiée le"
 
+  
   # Add or remove columns to toggle their visibility in the index action
   index do
     #selectable_column
