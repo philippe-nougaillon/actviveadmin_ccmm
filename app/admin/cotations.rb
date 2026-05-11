@@ -1,6 +1,6 @@
 ActiveAdmin.register Cotation do
   # Specify parameters which should be permitted for assignment
-  permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, 
+  permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut,
         cotation_lignes_attributes: [:id, :cotation_id, :article_id, :intitulé, :qté, :prix_ht, :_destroy]
 
   includes :cotation_lignes
@@ -24,8 +24,8 @@ ActiveAdmin.register Cotation do
   filter :intitulé
   filter :mémo
   filter :total_ht
-  filter :created_at
-  filter :updated_at
+  filter :created_at, label: "Créée le"
+  filter :updated_at, label: "Modifiée le"
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -56,7 +56,7 @@ ActiveAdmin.register Cotation do
       row :intitulé
       row :mémo
       row :total_ht
-      row "crée le", :created_at
+      row "créée le", :created_at
       row "modifiée le", :updated_at
       
       panel "Détails" do
