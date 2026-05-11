@@ -66,6 +66,7 @@ ActiveAdmin.register Cotation do
         column :intitulé
         column :qté
         column :prix_ht
+        column :total_ht
       end
     end
     end

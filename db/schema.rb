@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_10_050253) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_11_084833) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer "author_id"
     t.string "author_type"
@@ -67,6 +67,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_10_050253) do
     t.string "intitulé"
     t.decimal "prix_ht", precision: 8, scale: 2
     t.integer "qté"
+    t.virtual "total_ht", type: :integer, as: "prix_ht * qté", stored: true
     t.datetime "updated_at", null: false
     t.index ["article_id"], name: "index_cotation_lignes_on_article_id"
     t.index ["cotation_id"], name: "index_cotation_lignes_on_cotation_id"
