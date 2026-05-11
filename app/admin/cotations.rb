@@ -21,13 +21,20 @@ ActiveAdmin.register Cotation do
   config.sort_order = 'updated_at_desc'
 
   # For security, limit the actions that should be available
-  actions :all, except: []
+  actions :all, except: [:destroy]
 
   controller do
     def scoped_collection
       super.includes :adherent # prevents N+1 queries to your database
     end
   end
+
+  scope :all, default: true
+  scope("Créé") { |scope| scope.where(statut: 'créé')}
+  scope("Envoyé") { |scope| scope.where(statut: 'envoyé')}
+  scope("Validé") { |scope| scope.where(statut: 'validé')}
+  scope("Refusé") { |scope| scope.where(statut: 'refusé')}
+  scope("Archivé") { |scope| scope.where(statut: 'archivé')}
 
   # Add or remove filters to toggle their visibility
   filter :id
@@ -40,7 +47,7 @@ ActiveAdmin.register Cotation do
 
   # Add or remove columns to toggle their visibility in the index action
   index do
-    selectable_column
+    #selectable_column
     id_column
     column :ref
     column :statut do |c| 

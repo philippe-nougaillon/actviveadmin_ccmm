@@ -1,6 +1,4 @@
 ActiveAdmin.register Prestation do
-  menu label: "Catalogue Prestations"
-
   # Specify parameters which should be permitted for assignment
   permit_params :code, :libellé, :catégorie, :sous_catégorie, :description, :unité, :tarif, :compétence, :délai
 
@@ -15,6 +13,8 @@ ActiveAdmin.register Prestation do
   # For security, limit the actions that should be available
   actions :all, except: []
 
+  config.create_another = true
+
   # Add or remove filters to toggle their visibility
   filter :id
   filter :code
@@ -24,8 +24,10 @@ ActiveAdmin.register Prestation do
   filter :compétence
   filter :délai
 
+  menu label: "Catalogue Prestations"
+
   # Add or remove columns to toggle their visibility in the index action
-  index do
+  index title: "Catalogue Prestations" do
     selectable_column
     id_column
     column :code
