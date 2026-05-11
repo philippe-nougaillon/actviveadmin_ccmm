@@ -17,6 +17,9 @@ ActiveAdmin.register Cotation do
   includes :adherent
   includes :cotation_lignes
 
+  # default sort order 
+  config.sort_order = 'updated_at_desc'
+
   # For security, limit the actions that should be available
   actions :all, except: []
 
