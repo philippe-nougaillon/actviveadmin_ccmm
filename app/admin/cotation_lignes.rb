@@ -12,6 +12,9 @@ ActiveAdmin.register CotationLigne do
   #   permitted
   # end
 
+  # eliminate N+1 queries
+  includes :prestation
+
   # For security, limit the actions that should be available
   actions :all, except: []
 

@@ -1,10 +1,9 @@
 ActiveAdmin.register Cotation do
+  menu label: "Cotations / Devis"
+
   # Specify parameters which should be permitted for assignment
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut,
         cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
-
-  includes :adherent
-  includes :cotation_lignes
 
   # or consider:
   #
@@ -13,6 +12,10 @@ ActiveAdmin.register Cotation do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  # eliminate N+1 queries
+  includes :adherent
+  includes :cotation_lignes
 
   # For security, limit the actions that should be available
   actions :all, except: []
@@ -27,10 +30,8 @@ ActiveAdmin.register Cotation do
   filter :id
   filter :ref
   filter :adherent
-  filter :statut
+  filter :statut, as: :select, collection: proc { Cotation.statuts }
   filter :intitulé
-  filter :mémo
-  filter :total_ht
   filter :created_at, label: "Créée le"
   filter :updated_at, label: "Modifiée le"
 
@@ -44,9 +45,7 @@ ActiveAdmin.register Cotation do
     end
     column :adherent, sortable: 'adherent.nom_ville'
     column :intitulé
-    column :mémo
     column :total_ht
-    # column :created_at
     column "modifiée le", :updated_at
     actions
   end

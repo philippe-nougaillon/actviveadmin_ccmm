@@ -2,8 +2,6 @@ ActiveAdmin.register Adherent do
   # Specify parameters which should be permitted for assignment
   permit_params :nom_ville, :nom_contact, :email, :memo
 
-  #menu label: "Adhérents"
-
   # or consider:
   #
   # permit_params do
@@ -17,12 +15,12 @@ ActiveAdmin.register Adherent do
 
   # Add or remove filters to toggle their visibility
   filter :id
-  filter :nom_ville
+  filter :nom_ville, as: :select, collection: proc { Adherent.pluck(:nom_ville).uniq.sort }
   filter :nom_contact
   filter :email
   filter :memo
-  filter :created_at
-  filter :updated_at
+  filter :created_at, label: "Créé le"
+  filter :updated_at, label: "Modifié le"
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -31,8 +29,6 @@ ActiveAdmin.register Adherent do
     column :nom_ville
     column :nom_contact
     column :email
-    #column :memo
-    #column :created_at
     column "modifié le", :updated_at
     actions
   end

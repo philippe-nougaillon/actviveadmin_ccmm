@@ -1,4 +1,6 @@
 ActiveAdmin.register Prestation do
+  menu label: "Catalogue Prestations"
+
   # Specify parameters which should be permitted for assignment
   permit_params :code, :libellé, :catégorie, :sous_catégorie, :description, :unité, :tarif, :compétence, :délai
 
@@ -17,7 +19,7 @@ ActiveAdmin.register Prestation do
   filter :id
   filter :code
   filter :libellé
-  filter :catégorie
+  filter :catégorie, as: :select, collection: proc { Prestation.pluck(:catégorie).uniq.sort }
   filter :sous_catégorie
   filter :compétence
   filter :délai
