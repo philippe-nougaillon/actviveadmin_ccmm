@@ -2,7 +2,7 @@ ActiveAdmin.register CotationLigne do
   menu false
 
   # Specify parameters which should be permitted for assignment
-  permit_params :cotation_id, :article_id, :intitulé, :qté, :prix_ht
+  permit_params :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht
 
   # or consider:
   #
@@ -18,7 +18,7 @@ ActiveAdmin.register CotationLigne do
   # Add or remove filters to toggle their visibility
   filter :id
   filter :cotation
-  filter :article
+  filter :prestation
   filter :intitulé
   filter :qté
   filter :prix_ht
@@ -30,7 +30,7 @@ ActiveAdmin.register CotationLigne do
     selectable_column
     id_column
     column :cotation
-    column :article
+    column :prestation
     column :intitulé
     column :qté
     column :prix_ht
@@ -44,7 +44,7 @@ ActiveAdmin.register CotationLigne do
     attributes_table_for(resource) do
       row :id
       row :cotation
-      row :article
+      row :prestation
       row :intitulé
       row :qté
       row :prix_ht
@@ -58,7 +58,7 @@ ActiveAdmin.register CotationLigne do
     f.semantic_errors(*f.object.errors.attribute_names)
     f.inputs do
       f.input :cotation
-      f.input :article
+      f.input :prestation
       f.input :intitulé
       f.input :qté
       f.input :prix_ht

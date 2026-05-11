@@ -49,8 +49,8 @@ ActiveAdmin.register Prestation do
       row :tarif
       row :compétence
       row :délai
-      row :created_at
-      row :updated_at
+      row "créée le", :created_at
+      row "modifiée le", :updated_at
     end
   end
 

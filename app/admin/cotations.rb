@@ -1,7 +1,7 @@
 ActiveAdmin.register Cotation do
   # Specify parameters which should be permitted for assignment
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut,
-        cotation_lignes_attributes: [:id, :cotation_id, :article_id, :intitulé, :qté, :prix_ht, :_destroy]
+        cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
 
   includes :adherent
   includes :cotation_lignes
@@ -69,7 +69,7 @@ ActiveAdmin.register Cotation do
       panel "Détails" do
       table_for cotation.cotation_lignes do
         column :id
-        column :article
+        column :prestation
         column :intitulé
         column :qté
         column :prix_ht
@@ -86,13 +86,13 @@ ActiveAdmin.register Cotation do
       f.input :ref
       f.input :adherent
       f.input :intitulé
-      f.input :total_ht
       f.input :statut
       f.input :mémo
+      f.input :total_ht
       
       f.inputs "Détails" do
       f.has_many :cotation_lignes, heading: false, allow_destroy: true, new_record: true do |a|
-        a.input :article
+        a.input :prestation
         a.input :intitulé
         a.input :qté
         a.input :prix_ht

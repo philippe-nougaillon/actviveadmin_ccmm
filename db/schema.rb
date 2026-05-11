@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_11_161600) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_11_172600) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer "author_id"
     t.string "author_type"
@@ -61,16 +61,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_11_161600) do
   end
 
   create_table "cotation_lignes", force: :cascade do |t|
-    t.integer "article_id", null: false
     t.integer "cotation_id", null: false
     t.datetime "created_at", null: false
     t.string "intitulé"
+    t.integer "prestation_id", null: false
     t.decimal "prix_ht", precision: 8, scale: 2
     t.integer "qté"
     t.virtual "total_ht", type: :integer, as: "prix_ht * qté", stored: true
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_cotation_lignes_on_article_id"
     t.index ["cotation_id"], name: "index_cotation_lignes_on_cotation_id"
+    t.index ["prestation_id"], name: "index_cotation_lignes_on_prestation_id"
   end
 
   create_table "cotations", force: :cascade do |t|
@@ -99,7 +99,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_11_161600) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "cotation_lignes", "articles"
   add_foreign_key "cotation_lignes", "cotations"
+  add_foreign_key "cotation_lignes", "prestations"
   add_foreign_key "cotations", "adherents"
 end
