@@ -3,6 +3,7 @@ ActiveAdmin.register Cotation do
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut,
         cotation_lignes_attributes: [:id, :cotation_id, :article_id, :intitulé, :qté, :prix_ht, :_destroy]
 
+  includes :adherent
   includes :cotation_lignes
 
   # or consider:
@@ -15,6 +16,12 @@ ActiveAdmin.register Cotation do
 
   # For security, limit the actions that should be available
   actions :all, except: []
+
+  controller do
+    def scoped_collection
+      super.includes :adherent # prevents N+1 queries to your database
+    end
+  end
 
   # Add or remove filters to toggle their visibility
   filter :id
@@ -35,7 +42,7 @@ ActiveAdmin.register Cotation do
     column :statut do |c| 
       status_tag c.statut
     end
-    column :adherent
+    column :adherent, sortable: 'adherent.nom_ville'
     column :intitulé
     column :mémo
     column :total_ht
