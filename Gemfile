@@ -34,4 +34,8 @@ group :test do
 end
 
 # for French lang
-gem "devise-i18n"
+gem 'devise-i18n'
+
+# PDF generator
+gem 'prawn'
+gem 'prawn-table' 

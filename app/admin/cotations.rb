@@ -23,21 +23,21 @@ ActiveAdmin.register Cotation do
   # For security, limit the actions that should be available
   actions :all, except: [:destroy]
 
-  # PDF 
+  # PDF generator action
   action_item :pdf, only: :show do
     link_to 'Voir en PDF', 
             pdf_admin_cotation_path(resource, format: :pdf),
             class: 'action-item-button'
   end
-
   member_action :pdf, method: :get do
-    pdf = OrderInvoiceGenerator.new(resource).generate
+    pdf = CotationPdfGenerator.new(resource).generate
     send_data pdf.render,
-              filename: "invoice_#{resource.order_number}.pdf",
+              filename: "cotation_#{resource.id}.pdf",
               type: 'application/pdf',
               disposition: 'inline'
   end
 
+  # Custom controller
   controller do
     # allow sorting scoped collection (adhérent)
     def scoped_collection
