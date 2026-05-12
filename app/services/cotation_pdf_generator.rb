@@ -8,7 +8,8 @@ class CotationPdfGenerator
   def generate
     add_header
     add_metadata
-    add_content
+    #add_content
+    add_cotation_details
     add_footer
     @pdf
   end
@@ -16,7 +17,7 @@ class CotationPdfGenerator
   private
 
   def add_header
-    @pdf.text "Cotation/Devis CCMM", size: 24, style: :bold
+    @pdf.text "Cotation/Devis CCMM", size: 16 , style: :bold
     @pdf.move_down 10
     @pdf.stroke_horizontal_rule
     @pdf.move_down 20
@@ -38,6 +39,20 @@ class CotationPdfGenerator
     end
 
     @pdf.move_down 20
+  end
+
+  def add_cotation_details
+    @pdf.text "Prestations", size: 14, style: :bold
+
+    @pdf.table [['Code', 'Prestation', 'Qté', 'Prix_ht', 'Total_ht']]
+    @cotation.cotation_lignes.each do | ligne |
+      @pdf.table [[ligne.prestation.code, ligne.prestation.description, ligne.qté, ligne.prix_ht, ligne.total_ht]]      
+    end
+
+    # data = [
+    #   []
+    # ]
+
   end
 
   def add_content

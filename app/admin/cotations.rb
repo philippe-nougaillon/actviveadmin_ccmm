@@ -32,7 +32,7 @@ ActiveAdmin.register Cotation do
   member_action :pdf, method: :get do
     pdf = CotationPdfGenerator.new(resource).generate
     send_data pdf.render,
-              filename: "cotation_#{resource.id}.pdf",
+              filename: "CCMM-Cotation_##{resource.id}.pdf",
               type: 'application/pdf',
               disposition: 'inline'
   end
