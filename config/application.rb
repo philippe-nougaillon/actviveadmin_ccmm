@@ -40,5 +40,16 @@ module ActiveAdminDemo
     # switch to French lang
     config.i18n.default_locale = :fr
 
+    # "Psych::DisallowedClass" error fix (caused by audited)
+    config.active_record.yaml_column_permitted_classes = [
+      Symbol, 
+      Date, 
+      Time, 
+      ActiveSupport::TimeWithZone, 
+      ActiveSupport::TimeZone,
+      ActionController::Parameters,
+      BigDecimal
+    ]
+
   end
 end
