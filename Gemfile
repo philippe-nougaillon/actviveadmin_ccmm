@@ -39,3 +39,5 @@ gem 'devise-i18n'
 # PDF generator
 gem 'prawn'
 gem 'prawn-table' 
+
+gem "audited", "~> 5.8"

@@ -1,4 +1,5 @@
 class Adherent < ApplicationRecord
+  audited
   has_many :cotations
 
   def display_name
