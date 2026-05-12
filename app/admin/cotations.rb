@@ -23,8 +23,23 @@ ActiveAdmin.register Cotation do
   # For security, limit the actions that should be available
   actions :all, except: [:destroy]
 
-  # allow sorting scoped collection (adhérent)
+  # PDF 
+  action_item :pdf, only: :show do
+    link_to 'Voir en PDF', 
+            pdf_admin_cotation_path(resource, format: :pdf),
+            class: 'action-item-button'
+  end
+
+  member_action :pdf, method: :get do
+    pdf = OrderInvoiceGenerator.new(resource).generate
+    send_data pdf.render,
+              filename: "invoice_#{resource.order_number}.pdf",
+              type: 'application/pdf',
+              disposition: 'inline'
+  end
+
   controller do
+    # allow sorting scoped collection (adhérent)
     def scoped_collection
       super.includes :adherent # prevents N+1 queries to your database
     end
@@ -45,8 +60,7 @@ ActiveAdmin.register Cotation do
   filter :intitulé
   filter :created_at, label: "Créée le"
   filter :updated_at, label: "Modifiée le"
-
-  
+ 
   # Add or remove columns to toggle their visibility in the index action
   index do
     #selectable_column
@@ -80,15 +94,15 @@ ActiveAdmin.register Cotation do
       row "modifiée le", :updated_at
       
       panel "Détails" do
-      table_for cotation.cotation_lignes do
-        column :id
-        column :prestation
-        column :intitulé
-        column :qté
-        column :prix_ht
-        column :total_ht
+        table_for cotation.cotation_lignes do
+          column :id
+          column :prestation
+          column :intitulé
+          column :qté
+          column :prix_ht
+          column :total_ht
+        end
       end
-    end
     end
   end
 
