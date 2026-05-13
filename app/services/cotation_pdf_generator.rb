@@ -48,11 +48,6 @@ class CotationPdfGenerator
     @cotation.cotation_lignes.each do | ligne |
       @pdf.table [[ligne.prestation.code, ligne.prestation.description, ligne.qté, ligne.prix_ht, ligne.total_ht]]      
     end
-
-    # data = [
-    #   []
-    # ]
-
   end
 
   def add_content

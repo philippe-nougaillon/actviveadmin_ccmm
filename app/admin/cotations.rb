@@ -1,6 +1,4 @@
 ActiveAdmin.register Cotation do
-  menu label: "Cotations / Devis"
-
   # Specify parameters which should be permitted for assignment
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut, :date_livraison_souhaitée,
         cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
@@ -23,35 +21,6 @@ ActiveAdmin.register Cotation do
   # For security, limit the actions that should be available
   actions :all, except: [:destroy]
 
-  # PDF generator action
-  action_item :pdf, only: :show do
-    link_to 'Voir en PDF', 
-            pdf_admin_cotation_path(resource, format: :pdf),
-            class: 'action-item-button'
-  end
-  member_action :pdf, method: :get do
-    pdf = CotationPdfGenerator.new(resource).generate
-    send_data pdf.render,
-              filename: "CCMM-Cotation_##{resource.id}.pdf",
-              type: 'application/pdf',
-              disposition: 'inline'
-  end
-
-  # Custom controller
-  controller do
-    # allow sorting scoped collection (adhérent)
-    def scoped_collection
-      super.includes :adherent # prevents N+1 queries to your database
-    end
-  end
-
-  scope :all, default: true
-  scope("Créé", group: :statut) { |scope| scope.where(statut: 'créé')}
-  scope("Envoyé", group: :statut) { |scope| scope.where(statut: 'envoyé')}
-  scope("Validé", group: :statut) { |scope| scope.where(statut: 'validé')}
-  scope("Refusé", group: :statut) { |scope| scope.where(statut: 'refusé')}
-  scope("Archivé", group: :statut) { |scope| scope.where(statut: 'archivé')}
-
   # Add or remove filters to toggle their visibility
   filter :id
   filter :ref
@@ -60,7 +29,9 @@ ActiveAdmin.register Cotation do
   filter :intitulé
   filter :created_at, label: "Créée le"
   filter :updated_at, label: "Modifiée le"
- 
+
+  menu label: "Cotations / Devis"
+
   # Add or remove columns to toggle their visibility in the index action
   index do
     #selectable_column
@@ -129,4 +100,41 @@ ActiveAdmin.register Cotation do
     end
     f.actions
   end
+
+  # CCMM Custom code 
+  #
+  #
+
+  # Allow statut filters
+  scope :all, default: true
+  scope("Créé", group: :statut) { |scope| scope.where(statut: 'créé')}
+  scope("Envoyé", group: :statut) { |scope| scope.where(statut: 'envoyé')}
+  scope("Validé", group: :statut) { |scope| scope.where(statut: 'validé')}
+  scope("Refusé", group: :statut) { |scope| scope.where(statut: 'refusé')}
+  scope("Archivé", group: :statut) { |scope| scope.where(statut: 'archivé')}
+
+  # PDF generator action_item 
+  action_item :pdf, only: :show do
+    link_to 'Voir en PDF', 
+            pdf_admin_cotation_path(resource, format: :pdf),
+            class: 'action-item-button'
+  end
+
+  # PDF generator action code
+  member_action :pdf, method: :get do
+    pdf = CotationPdfGenerator.new(resource).generate
+    send_data pdf.render,
+              filename: "CCMM-Cotation_##{resource.id}.pdf",
+              type: 'application/pdf',
+              disposition: 'inline'
+  end
+
+  # Custom controller
+  controller do
+    # allow sorting scoped collection (adhérent)
+    def scoped_collection
+      super.includes :adherent # prevents N+1 queries to the database
+    end
+  end
+
 end

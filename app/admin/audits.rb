@@ -1,6 +1,4 @@
 ActiveAdmin.register Audit do
-  menu parent: "_Admin", priority: 9999
-
   # Specify parameters which should be permitted for assignment
   permit_params :auditable_id, :auditable_type, :associated_id, :associated_type, :user_id, :user_type, :username, :action, :audited_changes, :version, :comment, :remote_address, :request_uuid
 
@@ -32,12 +30,15 @@ ActiveAdmin.register Audit do
   filter :request_uuid
   filter :created_at
 
+  menu parent: "_Admin", priority: 9999
+
   # Add or remove columns to toggle their visibility in the index action
   index do
     selectable_column
     id_column
     column :auditable
     column :auditable_type
+    column :auditable_id
     column :associated
     column :associated_type
     column :user
@@ -59,6 +60,7 @@ ActiveAdmin.register Audit do
       row :id
       row :auditable
       row :auditable_type
+      row :auditable_id
       row :associated
       row :associated_type
       row :user

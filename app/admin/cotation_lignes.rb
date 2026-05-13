@@ -1,6 +1,4 @@
 ActiveAdmin.register CotationLigne do
-  menu false
-
   # Specify parameters which should be permitted for assignment
   permit_params :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht
 
@@ -27,6 +25,8 @@ ActiveAdmin.register CotationLigne do
   filter :prix_ht
   filter :created_at
   filter :updated_at
+
+  menu false
 
   # Add or remove columns to toggle their visibility in the index action
   index do
