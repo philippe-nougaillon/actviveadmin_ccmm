@@ -11,24 +11,15 @@ ActiveAdmin.register Audit do
   # end
 
   # For security, limit the actions that should be available
-  actions :all, except: []
+  actions :all, except: [:new, :edit, :destroy]
 
   # Add or remove filters to toggle their visibility
   filter :id
-  filter :auditable
   filter :auditable_type
-  filter :associated
-  filter :associated_type
-  filter :user
+  filter :user_id
   filter :user_type
   filter :username
   filter :action
-  filter :audited_changes
-  filter :version
-  filter :comment
-  filter :remote_address
-  filter :request_uuid
-  filter :created_at
 
   menu parent: "_Admin", priority: 9999
 
@@ -36,20 +27,13 @@ ActiveAdmin.register Audit do
   index do
     selectable_column
     id_column
-    column :auditable
     column :auditable_type
     column :auditable_id
-    column :associated
-    column :associated_type
-    column :user
+    column :user_id
     column :user_type
-    column :username
     column :action
     column :audited_changes
     column :version
-    column :comment
-    column :remote_address
-    column :request_uuid
     column :created_at
     actions
   end
@@ -58,12 +42,11 @@ ActiveAdmin.register Audit do
   show do
     attributes_table_for(resource) do
       row :id
-      row :auditable
       row :auditable_type
       row :auditable_id
-      row :associated
+      row :associated_id
       row :associated_type
-      row :user
+      row :user_id
       row :user_type
       row :username
       row :action
