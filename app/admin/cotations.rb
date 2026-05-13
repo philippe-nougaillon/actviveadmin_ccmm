@@ -101,7 +101,7 @@ ActiveAdmin.register Cotation do
     f.actions
   end
 
-  # CCMM Custom code 
+  # CCMM CRM Custom code 
   #
   #
 

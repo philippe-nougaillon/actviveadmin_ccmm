@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register AdminUser do
-  menu parent: "_Admin", priority: 9999
-
   permit_params :email, :password, :password_confirmation
 
   config.batch_actions = false
@@ -45,6 +43,8 @@ ActiveAdmin.register AdminUser do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
+
+  menu parent: "_Admin", priority: 9999
 
   form do |f|
     f.inputs do
