@@ -1,9 +1,12 @@
 class CotationLigne < ApplicationRecord
   belongs_to :cotation
   belongs_to :prestation
+
   audited associated_with: :cotation
 
   after_save :set_cotation_total_ht
+
+  validates :qté, :prix_ht, presence: true
 
 private
 

@@ -25,7 +25,6 @@ ActiveAdmin.register Audit do
 
   # Add or remove columns to toggle their visibility in the index action
   index do
-    selectable_column
     id_column
     column :auditable_type
     column :auditable_id
