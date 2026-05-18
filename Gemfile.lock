@@ -341,6 +341,7 @@ DEPENDENCIES
   devise
   devise-i18n
   importmap-rails
+  matrix (~> 0.4.3)
   prawn
   prawn-table
   puma
