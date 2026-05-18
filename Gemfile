@@ -41,3 +41,5 @@ gem 'prawn'
 gem 'prawn-table' 
 
 gem "audited", "~> 5.8"
+
+gem "matrix", "~> 0.4.3"
