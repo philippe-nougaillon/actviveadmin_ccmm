@@ -1,5 +1,7 @@
 # app/services/cotation_pdf_generator.rb
 class CotationPdfGenerator
+  include ActionView::Helpers::NumberHelper
+
   def initialize(cotation)
     @cotation = cotation
     @pdf = Prawn::Document.new(page_size: 'A4', margin: 50)
@@ -17,20 +19,21 @@ class CotationPdfGenerator
   private
 
   def add_header
-    @pdf.text "Cotation/Devis CCMM", size: 16 , style: :bold
+    @pdf.text "CCMM | Cotation/Devis n°#{ @cotation.id }", size: 16 , style: :bold
     @pdf.move_down 10
     @pdf.stroke_horizontal_rule
     @pdf.move_down 20
   end
 
+  # Informations en entête
   def add_metadata
     data = [
-      ['Ref:', @cotation.ref],
+      ['Le:', I18n.l(@cotation.updated_at, format: :long)],
+      ['Réf:', @cotation.ref],
       ['Adhérent:', @cotation.adherent.nom_ville],
       ['intitulé:', @cotation.intitulé],
-      ['Date:', @cotation.updated_at.to_s],
-      ['Statut:', @cotation.statut],
-      ['Total HT €:', @cotation.total_ht]
+      ['Statut:', @cotation.statut.humanize],
+      ['Total HT €:', number_to_currency(@cotation.total_ht)]
     ]
 
     @pdf.table(data, cell_style: { border_width: 0, padding: 5 }) do
@@ -43,10 +46,46 @@ class CotationPdfGenerator
 
   def add_cotation_details
     @pdf.text "Prestations", size: 14, style: :bold
+    @pdf.move_down 10
 
-    @pdf.table [['Code', 'Prestation', 'Qté', 'Prix_ht', 'Total_ht']]
+    # Entête de ligne (Titres)
+    data = [['Code', 'Prestation', 'Qté', 'Prix_HT €', 'Total_HT €']]
+    @pdf.table(data, cell_style: { border_width: 1, padding: 5 }) do
+      column(0).font_style = :bold
+      column(0).width = 50
+      column(1).width = 240
+      column(2).width = 40
+      column(2).align = :center
+      column(3).width = 80
+      column(3).align = :center
+      column(4).width = 80      
+      column(4).align = :center
+      column(4).font_style = :bold
+    end
+    @pdf.move_down 10
+
+    # Pour chaque ligne de la cotation
     @cotation.cotation_lignes.each do | ligne |
-      @pdf.table [[ligne.prestation.code, ligne.prestation.description, ligne.qté, ligne.prix_ht, ligne.total_ht]]      
+      data = [
+        [ligne.prestation.code, 
+        ligne.prestation.description, 
+        ligne.qté, 
+        number_to_currency(ligne.prix_ht), 
+        number_to_currency(ligne.total_ht)]
+      ]
+
+      @pdf.table(data, cell_style: { border_width: 0, padding: 5 }) do
+        column(0).font_style = :bold
+        column(0).width = 50
+        column(1).width = 240
+        column(2).width = 40      
+        column(2).align = :right
+        column(3).width = 80
+        column(3).align = :right
+        column(4).width = 80      
+        column(4).align = :right
+        column(4).font_style = :bold
+      end     
     end
   end
 
