@@ -30,12 +30,13 @@ class CotationPdfGenerator
   # Informations en entête
   def add_metadata
     data = [
-      ['Le:', I18n.l(@cotation.updated_at, format: :long)],
-      ['Réf:', @cotation.ref],
-      ['Adhérent:', @cotation.adherent.nom_ville],
-      ['intitulé:', @cotation.intitulé],
-      ['Statut:', @cotation.statut.humanize],
-      ['Total HT €:', number_to_currency(@cotation.total_ht)]
+      ['Le :', I18n.l(@cotation.updated_at, format: :long)],
+      ['Réf :', @cotation.ref],
+      ['Statut :', @cotation.statut.humanize],
+      ['Adhérent :', @cotation.adherent.nom_ville],
+      ['Intitulé :', @cotation.intitulé],
+      ['Livraison : ', I18n.l(@cotation.date_livraison_souhaitée, format: :long)],
+      ['Total HT € :', number_to_currency(@cotation.total_ht)]
     ]
 
     @pdf.table(data, cell_style: { border_width: 0, padding: 5 }) do
@@ -51,14 +52,14 @@ class CotationPdfGenerator
     @pdf.move_down 10
 
     # Entête de ligne (Titres)
-    data = [['Code', 'Prestation', 'Qté', 'Prix_HT €', 'Total_HT €']]
+    data = [['Code', 'Prestation', 'Prix HT €', 'Qté', 'Total HT €']]
     @pdf.table(data, cell_style: { border_width: 1, padding: 5 }) do
       column(0).font_style = :bold
       column(0).width = 50
       column(1).width = 240
-      column(2).width = 40
+      column(2).width = 80
       column(2).align = :center
-      column(3).width = 80
+      column(3).width = 40
       column(3).align = :center
       column(4).width = 80      
       column(4).align = :center
@@ -71,8 +72,8 @@ class CotationPdfGenerator
       data = [
         [ligne.prestation.code, 
         ligne.prestation.description, 
-        ligne.qté, 
         number_to_currency(ligne.prix_ht), 
+        ligne.qté, 
         number_to_currency(ligne.total_ht)]
       ]
 
@@ -80,9 +81,9 @@ class CotationPdfGenerator
         column(0).font_style = :bold
         column(0).width = 50
         column(1).width = 240
-        column(2).width = 40      
+        column(2).width = 80
         column(2).align = :right
-        column(3).width = 80
+        column(3).width = 40      
         column(3).align = :right
         column(4).width = 80      
         column(4).align = :right
@@ -102,7 +103,7 @@ class CotationPdfGenerator
       @pdf.move_cursor_to 30
       @pdf.stroke_horizontal_rule
       @pdf.move_down 5
-      @pdf.text "Généré le #{Time.current.strftime('%d/%m/%Y à %H:%M')}",
+      @pdf.text "Document généré le #{Time.current.strftime('%d/%m/%Y à %H:%M')}",
                 size: 8, align: :center
     end
   end
