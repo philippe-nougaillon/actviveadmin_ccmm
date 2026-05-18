@@ -89,13 +89,13 @@ ActiveAdmin.register Cotation do
       f.input :total_ht
       
       f.inputs "Détails" do
-      f.has_many :cotation_lignes, heading: false, allow_destroy: true, new_record: true do |a|
-        a.input :prestation
-        a.input :intitulé
-        a.input :qté
-        a.input :prix_ht
+        f.has_many :cotation_lignes, heading: false, allow_destroy: true, new_record: true do |a|
+          a.input :prestation
+          a.input :intitulé
+          a.input :qté
+          a.input :prix_ht
+        end
       end
-    end
     end
     f.actions
   end
