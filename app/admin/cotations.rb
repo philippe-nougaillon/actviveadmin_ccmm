@@ -34,7 +34,6 @@ ActiveAdmin.register Cotation do
 
   # Add or remove columns to toggle their visibility in the index action
   index do
-    #selectable_column
     id_column
     column :ref
     column :statut do |c| 
