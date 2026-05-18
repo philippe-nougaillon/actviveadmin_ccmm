@@ -110,7 +110,7 @@ fr:
       per_page: 'Par page '
       previous: Précédent
       truncate: "&hellip;"
-    powered_by: Propulsé par %{active_admin} %{version}
+    powered_by: Propulsé par AIKKU #%{active_admin} %{version}
     previous: Précédent
     scopes:
       all: Tout
@@ -140,9 +140,6 @@ fr:
         resource_type: Type de ressource
         updated_at: Mis à jour le
     models:
-      active_admin/comment:
-        one: Commentaire
-        other: Commentaires
-      comment:
-        one: Commentaire
-        other: Commentaires
+      adherent:
+        one: Adhérent
+        other: Adhérents

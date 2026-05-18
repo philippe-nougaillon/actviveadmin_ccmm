@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cotation: one
+  article: one
+  intitulé: MyString
+  qté: 1
+  prix_ht: 9.99
+
+two:
+  cotation: two
+  article: two
+  intitulé: MyString
+  qté: 1
+  prix_ht: 9.99
