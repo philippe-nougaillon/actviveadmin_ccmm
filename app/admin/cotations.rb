@@ -95,7 +95,7 @@ ActiveAdmin.register Cotation do
       f.inputs "Détails" do
         f.has_many :cotation_lignes, heading: false, allow_destroy: true, new_record: true do |a|
           a.input :prestation
-          a.input :intitulé
+          a.input :intitulé, placeholder: "Pour ajouter un intitulé à la prestation"
           a.input :qté
           a.input :prix_ht
         end
