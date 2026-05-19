@@ -3,7 +3,7 @@ ActiveAdmin.register Cotation do
 
   # Specify parameters which should be permitted for assignment
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut, :date_livraison_souhaitée,
-        cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
+                cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
 
   # or consider:
   #
@@ -118,9 +118,10 @@ ActiveAdmin.register Cotation do
 
   # PDF generator action_item 
   action_item :pdf, only: :show do
-    link_to 'Voir en PDF', 
+    link_to 'Générer le PDF', 
             pdf_admin_cotation_path(resource, format: :pdf),
-            class: 'action-item-button'
+            class: 'action-item-button',
+            title: 'Cliquez ici pour générer la cotation au format PDF'
   end
 
   # PDF generator action code
