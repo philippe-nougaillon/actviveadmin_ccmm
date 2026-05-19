@@ -37,6 +37,7 @@ ActiveAdmin.register Cotation do
 
   # Add or remove columns to toggle their visibility in the index action
   index title: page_title do
+    selectable_column
     id_column
     column :ref
     column :statut do |c| 
@@ -137,6 +138,14 @@ ActiveAdmin.register Cotation do
     def scoped_collection
       super.includes :adherent # prevents N+1 queries to the database
     end
+  end
+
+  # Batch Actions
+  batch_action :archiver, confirm: "Confirmez-vous vouloir faire cette action ?" do |ids|
+    batch_action_collection.find(ids).each do |cotation|
+      cotation.update(statut: "archivé")
+    end
+    redirect_to collection_path, alert: "Les éléments sélectionnées ont été archivées..."
   end
 
 end
