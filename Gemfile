@@ -45,3 +45,4 @@ gem "audited", "~> 5.8"
 # DB schema generator
 gem "rails-schema", group: :development
 
+gem "draper", "~> 4.0"

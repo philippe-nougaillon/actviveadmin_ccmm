@@ -1,4 +1,6 @@
 ActiveAdmin.register Prestation do
+  decorate_with PrestationDecorator
+  
   # Specify parameters which should be permitted for assignment
   permit_params :code, :libellé, :catégorie, :sous_catégorie, :description, :unité, :tarif, :compétence, :délai
 
