@@ -1,4 +1,6 @@
 ActiveAdmin.register Cotation do
+  decorate_with CotationDecorator
+
   # Specify parameters which should be permitted for assignment
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut, :date_livraison_souhaitée,
         cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
@@ -49,7 +51,7 @@ ActiveAdmin.register Cotation do
   end
 
   # Add or remove rows to toggle their visibility in the show action
-  show do
+  show title: page_title do
     attributes_table_for(resource) do
       row :id
       row :ref
