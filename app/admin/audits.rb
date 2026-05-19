@@ -10,6 +10,8 @@ ActiveAdmin.register Audit do
   #   permitted
   # end
 
+  menu parent: "_Admin", priority: 9999
+
   # For security, limit the actions that should be available
   actions :all, except: [:new, :edit, :destroy]
 
@@ -20,8 +22,6 @@ ActiveAdmin.register Audit do
   filter :user_type
   filter :username
   filter :action
-
-  menu parent: "_Admin", priority: 9999
 
   # Add or remove columns to toggle their visibility in the index action
   index do

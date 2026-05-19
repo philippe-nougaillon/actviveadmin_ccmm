@@ -10,6 +10,9 @@ ActiveAdmin.register Prestation do
   #   permitted
   # end
 
+  page_title = "Catalogue Prestations"
+  menu label: page_title
+
   # For security, limit the actions that should be available
   actions :all, except: []
 
@@ -24,10 +27,8 @@ ActiveAdmin.register Prestation do
   filter :compétence
   filter :délai
 
-  menu label: "Catalogue Prestations"
-
   # Add or remove columns to toggle their visibility in the index action
-  index title: "Catalogue Prestations" do
+  index title: page_title do
     selectable_column
     id_column
     column :code

@@ -11,6 +11,9 @@ ActiveAdmin.register Cotation do
   #   permitted
   # end
 
+  page_title = "Cotations / Devis"
+  menu label: page_title
+
   # eliminate N+1 queries
   includes :adherent
   includes :cotation_lignes
@@ -30,10 +33,8 @@ ActiveAdmin.register Cotation do
   filter :created_at, label: "Créée le"
   filter :updated_at, label: "Modifiée le"
 
-  menu label: "Cotations / Devis"
-
   # Add or remove columns to toggle their visibility in the index action
-  index do
+  index title: page_title do
     id_column
     column :ref
     column :statut do |c| 
