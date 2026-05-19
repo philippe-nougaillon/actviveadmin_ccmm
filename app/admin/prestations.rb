@@ -14,7 +14,7 @@ ActiveAdmin.register Prestation do
   menu label: page_title
 
   # For security, limit the actions that should be available
-  actions :all, except: []
+  actions :all, except: [:destroy]
 
   config.create_another = true
 
@@ -35,9 +35,9 @@ ActiveAdmin.register Prestation do
     column :libellé
     column :catégorie
     column :sous_catégorie
+    column :compétence
     column :unité
     column :tarif
-    column :compétence
     actions
   end
 
@@ -50,9 +50,9 @@ ActiveAdmin.register Prestation do
       row :catégorie
       row :sous_catégorie
       row :description
+      row :compétence
       row :unité
       row :tarif
-      row :compétence
       row :délai
       row "créée le", :created_at
       row "modifiée le", :updated_at
@@ -68,9 +68,9 @@ ActiveAdmin.register Prestation do
       f.input :catégorie
       f.input :sous_catégorie
       f.input :description
+      f.input :compétence
       f.input :unité
       f.input :tarif
-      f.input :compétence
       f.input :délai
     end
     f.actions
