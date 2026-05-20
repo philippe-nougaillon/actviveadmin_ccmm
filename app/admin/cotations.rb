@@ -84,7 +84,6 @@ ActiveAdmin.register Cotation do
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
     f.inputs do
-      f.input :ref
       f.input :adherent
       f.input :intitulé
       f.input :statut

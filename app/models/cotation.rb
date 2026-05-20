@@ -11,6 +11,8 @@ class Cotation < ApplicationRecord
 
   validates :ref, :intitulé, :statut, presence: true
 
-  normalizes :ref, with: ->(value) { value.upcase }
+  before_validation do 
+    self.ref = "#{ Date.today.year }-#{ Cotation.where("updated_at like '#{ Date.today.year }%'").count + 1 }"  
+  end
   
 end
