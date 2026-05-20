@@ -11,4 +11,6 @@ class Cotation < ApplicationRecord
 
   validates :ref, :intitulé, :statut, presence: true
 
+  normalizes :ref, with: ->(value) { value.upcase }
+  
 end
