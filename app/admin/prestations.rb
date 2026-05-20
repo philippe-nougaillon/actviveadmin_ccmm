@@ -37,7 +37,6 @@ ActiveAdmin.register Prestation do
     column :libellé
     column :catégorie
     column :sous_catégorie
-    column :compétence
     column :unité
     column :tarif
     actions

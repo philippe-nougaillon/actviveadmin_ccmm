@@ -67,7 +67,7 @@ ActiveAdmin.register Cotation do
       row "créée le", :created_at
       row "modifiée le", :updated_at
       
-      panel "Détails" do
+      panel "Détails des prestations" do
         table_for cotation.cotation_lignes do
           column :id
           column :prestation
@@ -118,7 +118,7 @@ ActiveAdmin.register Cotation do
 
   # PDF generator action_item 
   action_item :pdf, only: :show do
-    link_to 'Générer le PDF', 
+    link_to 'Générer PDF', 
             pdf_admin_cotation_path(resource, format: :pdf),
             class: 'action-item-button',
             title: 'Cliquez ici pour générer la cotation au format PDF'
