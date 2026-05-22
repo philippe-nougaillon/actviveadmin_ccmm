@@ -150,7 +150,7 @@ ActiveAdmin.register Cotation do
     batch_action_collection.find(ids).each do |cotation|
       cotation.update(statut: "archivé")
     end
-    redirect_to collection_path, alert: "Les éléments sélectionnées ont été archivées..."
+    redirect_to collection_path, alert: "Les cotations sélectionnées ont bien été archivées..."
   end
 
 end
