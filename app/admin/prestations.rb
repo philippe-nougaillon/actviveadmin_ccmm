@@ -21,7 +21,7 @@ ActiveAdmin.register Prestation do
   config.create_another = true
 
   # Add or remove filters to toggle their visibility
-  filter :id
+  #filter :id
   filter :code
   filter :libellé
   filter :catégorie, as: :select, collection: proc { Prestation.pluck(:catégorie).uniq.sort }
