@@ -38,7 +38,7 @@ ActiveAdmin.register Prestation do
     column :catégorie
     column :sous_catégorie
     column :unité
-    column :tarif
+    column :tarif, class: 'text-right'
     actions
   end
 

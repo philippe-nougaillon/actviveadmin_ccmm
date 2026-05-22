@@ -46,7 +46,7 @@ ActiveAdmin.register Cotation do
     column :adherent, sortable: 'adherent.nom_ville'
     column :intitulé
     column :date_livraison_souhaitée
-    column :total_ht
+    column :total_ht, class: 'text-right'
     column "modifiée le", :updated_at
     actions
   end
@@ -73,8 +73,8 @@ ActiveAdmin.register Cotation do
           column :prestation
           column :intitulé
           column :qté
-          column :prix_ht
-          column :total_ht
+          column :prix_ht, class: 'text-right'
+          column :total_ht, class: 'text-right'
         end
       end
     end
