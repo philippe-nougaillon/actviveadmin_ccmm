@@ -134,9 +134,14 @@ ActiveAdmin.register Cotation do
 
   # Custom controller
   controller do
+    # display only not discarded cotations 
     # allow sorting scoped collection (adhérent)
     def scoped_collection
-      super.includes :adherent # prevents N+1 queries to the database
+      super.kept.includes :adherent # prevents N+1 queries to the database
+    end
+
+    def destroy
+      resource.discard
     end
   end
 

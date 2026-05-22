@@ -1,4 +1,6 @@
 class Cotation < ApplicationRecord
+  include Discard::Model
+  
   belongs_to :adherent
   has_many :cotation_lignes
 

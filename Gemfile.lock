@@ -127,6 +127,8 @@ GEM
     devise-i18n (1.16.0)
       devise (>= 5.0.0)
       rails-i18n
+    discard (1.4.0)
+      activerecord (>= 4.2, < 9.0)
     docile (1.4.1)
     draper (4.0.6)
       actionpack (>= 5.0)
@@ -354,6 +356,7 @@ DEPENDENCIES
   debug
   devise
   devise-i18n
+  discard (~> 1.4)
   draper (~> 4.0)
   importmap-rails
   matrix (~> 0.4.3)

@@ -45,4 +45,8 @@ gem "audited", "~> 5.8"
 # DB schema generator
 gem "rails-schema", group: :development
 
+# Decorators/View-Models for Rails Applications
 gem "draper", "~> 4.0"
+
+# Soft deletes for ActiveRecord done right
+gem 'discard', '~> 1.4'
