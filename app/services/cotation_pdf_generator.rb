@@ -20,7 +20,7 @@ class CotationPdfGenerator
 
   def add_header
     @pdf.image "#{@image_path}/Logo_CC_MAd_et_Moselle.jpg", height:60, position: :right
-    @pdf.text "CCMM | Cotation/Devis n°#{ @cotation.id }", size: 16 , style: :bold
+    @pdf.text "CCMM | Cotation/Devis n°#{ @cotation.ref }", size: 16 , style: :bold
     @pdf.move_down 10
     @pdf.stroke_horizontal_rule
     @pdf.move_down 20
