@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
@@ -16,7 +14,7 @@ ActiveAdmin.register_page "Dashboard" do
         text_node ", Commandes , Factures"
       end
       para class: "mt-12 text-xs" do
-        a "Voir le schéma de la BDD", href: "/schema.html"
+        a "Voir le schéma de la Base de données", href: "/schema.html"
       end
     end
   end

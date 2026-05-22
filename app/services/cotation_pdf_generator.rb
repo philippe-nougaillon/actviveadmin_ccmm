@@ -46,6 +46,7 @@ class CotationPdfGenerator
     @pdf.move_down 20
   end
 
+  # Détails des prestations 
   def add_cotation_details
     @pdf.text "Prestations", size: 14, style: :bold
     @pdf.move_down 10
@@ -66,7 +67,7 @@ class CotationPdfGenerator
     end
     @pdf.move_down 10
 
-    # Pour chaque ligne de la cotation
+    # Pour chaque ligne de la cotation, on  sort une ligne de tableau
     @cotation.cotation_lignes.each do | ligne |
       data = [
         [ligne.prestation.code, 
@@ -97,6 +98,7 @@ class CotationPdfGenerator
     @pdf.text @cotation.mémo, align: :justify
   end
 
+  # pied de page
   def add_footer
     @pdf.repeat(:all) do
       @pdf.move_cursor_to 30

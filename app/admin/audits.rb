@@ -1,16 +1,6 @@
 ActiveAdmin.register Audit do
   decorate_with AuditDecorator
-  # Specify parameters which should be permitted for assignment
-  #permit_params :auditable_id, :auditable_type, :associated_id, :associated_type, :user_id, :user_type, :username, :action, :audited_changes, :version, :comment, :remote_address, :request_uuid
-
-  # or consider:
-  #
-  # permit_params do
-  #   permitted = [:auditable_id, :auditable_type, :associated_id, :associated_type, :user_id, :user_type, :username, :action, :audited_changes, :version, :comment, :remote_address, :request_uuid]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-
+  
   menu parent: "_Admin", priority: 9999
 
   # For security, limit the actions that should be available
