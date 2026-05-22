@@ -11,7 +11,12 @@ ActiveAdmin.register Adherent do
   # end
 
   # For security, limit the actions that should be available
-  actions :all, except: []
+  actions :all, except: [:destroy]
+
+  # default sort order 
+  config.sort_order = 'nom_ville_asc'
+
+  config.create_another = true
 
   # Add or remove filters to toggle their visibility
   filter :id
@@ -24,7 +29,6 @@ ActiveAdmin.register Adherent do
 
   # Add or remove columns to toggle their visibility in the index action
   index do
-    selectable_column
     id_column
     column :nom_ville
     column :nom_contact

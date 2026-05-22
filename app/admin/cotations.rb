@@ -1,7 +1,9 @@
 ActiveAdmin.register Cotation do
+  decorate_with CotationDecorator
+
   # Specify parameters which should be permitted for assignment
   permit_params :ref, :adherent_id, :intitulé, :mémo, :total_ht, :statut, :date_livraison_souhaitée,
-        cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
+                cotation_lignes_attributes: [:id, :cotation_id, :prestation_id, :intitulé, :qté, :prix_ht, :_destroy]
 
   # or consider:
   #
@@ -10,6 +12,9 @@ ActiveAdmin.register Cotation do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  page_title = "Cotations / Devis"
+  menu label: page_title
 
   # eliminate N+1 queries
   includes :adherent
@@ -30,10 +35,9 @@ ActiveAdmin.register Cotation do
   filter :created_at, label: "Créée le"
   filter :updated_at, label: "Modifiée le"
 
-  menu label: "Cotations / Devis"
-
   # Add or remove columns to toggle their visibility in the index action
-  index do
+  index title: page_title do
+    selectable_column
     id_column
     column :ref
     column :statut do |c| 
@@ -42,13 +46,13 @@ ActiveAdmin.register Cotation do
     column :adherent, sortable: 'adherent.nom_ville'
     column :intitulé
     column :date_livraison_souhaitée
-    column :total_ht
+    column :total_ht, class: 'text-right'
     column "modifiée le", :updated_at
     actions
   end
 
   # Add or remove rows to toggle their visibility in the show action
-  show do
+  show title: page_title do
     attributes_table_for(resource) do
       row :id
       row :ref
@@ -63,14 +67,14 @@ ActiveAdmin.register Cotation do
       row "créée le", :created_at
       row "modifiée le", :updated_at
       
-      panel "Détails" do
+      panel "Détails des prestations" do
         table_for cotation.cotation_lignes do
           column :id
           column :prestation
           column :intitulé
           column :qté
-          column :prix_ht
-          column :total_ht
+          column :prix_ht, class: 'text-right'
+          column :total_ht, class: 'text-right'
         end
       end
     end
@@ -80,7 +84,6 @@ ActiveAdmin.register Cotation do
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
     f.inputs do
-      f.input :ref
       f.input :adherent
       f.input :intitulé
       f.input :statut
@@ -91,7 +94,7 @@ ActiveAdmin.register Cotation do
       f.inputs "Détails" do
         f.has_many :cotation_lignes, heading: false, allow_destroy: true, new_record: true do |a|
           a.input :prestation
-          a.input :intitulé
+          a.input :intitulé, placeholder: "Pour ajouter un intitulé à la prestation"
           a.input :qté
           a.input :prix_ht
         end
@@ -114,9 +117,10 @@ ActiveAdmin.register Cotation do
 
   # PDF generator action_item 
   action_item :pdf, only: :show do
-    link_to 'Voir en PDF', 
+    link_to 'Générer PDF', 
             pdf_admin_cotation_path(resource, format: :pdf),
-            class: 'action-item-button'
+            class: 'action-item-button',
+            title: 'Cliquez ici pour générer la cotation au format PDF'
   end
 
   # PDF generator action code
@@ -130,10 +134,23 @@ ActiveAdmin.register Cotation do
 
   # Custom controller
   controller do
+    # display only not discarded cotations 
     # allow sorting scoped collection (adhérent)
     def scoped_collection
-      super.includes :adherent # prevents N+1 queries to the database
+      super.kept.includes :adherent # prevents N+1 queries to the database
     end
+
+    def destroy
+      resource.discard
+    end
+  end
+
+  # Batch Actions
+  batch_action :archiver, confirm: "Confirmez-vous vouloir faire cette action ?" do |ids|
+    batch_action_collection.find(ids).each do |cotation|
+      cotation.update(statut: "archivé")
+    end
+    redirect_to collection_path, alert: "Les cotations sélectionnées ont bien été archivées..."
   end
 
 end

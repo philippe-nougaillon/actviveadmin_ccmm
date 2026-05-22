@@ -11,7 +11,6 @@ class CotationPdfGenerator
   def generate
     add_header
     add_metadata
-    #add_content
     add_cotation_details
     add_footer
     @pdf
@@ -36,7 +35,7 @@ class CotationPdfGenerator
       ['Adhérent :', @cotation.adherent.nom_ville],
       ['Intitulé :', @cotation.intitulé],
       ['Livraison : ', I18n.l(@cotation.date_livraison_souhaitée, format: :long)],
-      ['Total HT € :', number_to_currency(@cotation.total_ht)]
+      ['Total HT € :', @cotation.total_ht]
     ]
 
     @pdf.table(data, cell_style: { border_width: 0, padding: 5 }) do
@@ -47,12 +46,13 @@ class CotationPdfGenerator
     @pdf.move_down 20
   end
 
+  # Détails des prestations 
   def add_cotation_details
     @pdf.text "Prestations", size: 14, style: :bold
     @pdf.move_down 10
 
     # Entête de ligne (Titres)
-    data = [['Code', 'Prestation', 'Prix HT €', 'Qté', 'Total HT €']]
+    data = [['Code', 'Intitulé', 'Prix HT €', 'Qté', 'Total HT €']]
     @pdf.table(data, cell_style: { border_width: 1, padding: 5 }) do
       column(0).font_style = :bold
       column(0).width = 50
@@ -67,17 +67,17 @@ class CotationPdfGenerator
     end
     @pdf.move_down 10
 
-    # Pour chaque ligne de la cotation
+    # Pour chaque ligne de la cotation, on  sort une ligne de tableau
     @cotation.cotation_lignes.each do | ligne |
       data = [
         [ligne.prestation.code, 
         ligne.prestation.description, 
-        number_to_currency(ligne.prix_ht), 
+        ligne.prix_ht, 
         ligne.qté, 
-        number_to_currency(ligne.total_ht)]
+        ligne.total_ht]
       ]
 
-      @pdf.table(data, cell_style: { border_width: 0, padding: 5 }) do
+      @pdf.table(data, cell_style: { border_width: 0, padding: 5, size: 10 }) do
         column(0).font_style = :bold
         column(0).width = 50
         column(1).width = 240
@@ -98,6 +98,7 @@ class CotationPdfGenerator
     @pdf.text @cotation.mémo, align: :justify
   end
 
+  # pied de page
   def add_footer
     @pdf.repeat(:all) do
       @pdf.move_cursor_to 30

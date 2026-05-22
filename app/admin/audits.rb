@@ -1,14 +1,7 @@
 ActiveAdmin.register Audit do
-  # Specify parameters which should be permitted for assignment
-  #permit_params :auditable_id, :auditable_type, :associated_id, :associated_type, :user_id, :user_type, :username, :action, :audited_changes, :version, :comment, :remote_address, :request_uuid
-
-  # or consider:
-  #
-  # permit_params do
-  #   permitted = [:auditable_id, :auditable_type, :associated_id, :associated_type, :user_id, :user_type, :username, :action, :audited_changes, :version, :comment, :remote_address, :request_uuid]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  decorate_with AuditDecorator
+  
+  menu parent: "_Admin", priority: 9999
 
   # For security, limit the actions that should be available
   actions :all, except: [:new, :edit, :destroy]
@@ -20,8 +13,6 @@ ActiveAdmin.register Audit do
   filter :user_type
   filter :username
   filter :action
-
-  menu parent: "_Admin", priority: 9999
 
   # Add or remove columns to toggle their visibility in the index action
   index do

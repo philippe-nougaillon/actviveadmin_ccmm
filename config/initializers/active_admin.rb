@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -8,7 +6,8 @@ ActiveAdmin.setup do |config|
   # by extracting the _site_header partial into your project
   # to use your own logo, styles, etc.
   #
-  config.site_title = "CRM (mvp)"
+
+  config.site_title = "CoopComm CRM"
 
   # == Load Paths
   #

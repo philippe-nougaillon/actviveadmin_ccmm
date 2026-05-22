@@ -18,8 +18,6 @@ gem "devise"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-gem "rails-schema", group: :development
-
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
@@ -39,7 +37,16 @@ gem 'devise-i18n'
 # PDF generator
 gem 'prawn'
 gem 'prawn-table' 
+gem "matrix", "~> 0.4.3"
 
+# logs all changes to your Rails models.
 gem "audited", "~> 5.8"
 
-gem "matrix", "~> 0.4.3"
+# DB schema generator
+gem "rails-schema", group: :development
+
+# Decorators/View-Models for Rails Applications
+gem "draper", "~> 4.0"
+
+# Soft deletes for ActiveRecord done right
+gem 'discard', '~> 1.4'

@@ -1,4 +1,6 @@
 ActiveAdmin.register Prestation do
+  decorate_with PrestationDecorator
+  
   # Specify parameters which should be permitted for assignment
   permit_params :code, :libellé, :catégorie, :sous_catégorie, :description, :unité, :tarif, :compétence, :délai
 
@@ -10,13 +12,16 @@ ActiveAdmin.register Prestation do
   #   permitted
   # end
 
+  page_title = "Catalogue Prestations"
+  menu label: page_title
+
   # For security, limit the actions that should be available
-  actions :all, except: []
+  actions :all, except: [:destroy]
 
   config.create_another = true
 
   # Add or remove filters to toggle their visibility
-  filter :id
+  #filter :id
   filter :code
   filter :libellé
   filter :catégorie, as: :select, collection: proc { Prestation.pluck(:catégorie).uniq.sort }
@@ -24,10 +29,8 @@ ActiveAdmin.register Prestation do
   filter :compétence
   filter :délai
 
-  menu label: "Catalogue Prestations"
-
   # Add or remove columns to toggle their visibility in the index action
-  index title: "Catalogue Prestations" do
+  index title: page_title do
     selectable_column
     id_column
     column :code
@@ -35,8 +38,7 @@ ActiveAdmin.register Prestation do
     column :catégorie
     column :sous_catégorie
     column :unité
-    column :tarif
-    column :compétence
+    column :tarif, class: 'text-right'
     actions
   end
 
@@ -49,9 +51,9 @@ ActiveAdmin.register Prestation do
       row :catégorie
       row :sous_catégorie
       row :description
+      row :compétence
       row :unité
       row :tarif
-      row :compétence
       row :délai
       row "créée le", :created_at
       row "modifiée le", :updated_at
@@ -67,9 +69,9 @@ ActiveAdmin.register Prestation do
       f.input :catégorie
       f.input :sous_catégorie
       f.input :description
+      f.input :compétence
       f.input :unité
       f.input :tarif
-      f.input :compétence
       f.input :délai
     end
     f.actions

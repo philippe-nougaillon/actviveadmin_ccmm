@@ -1,4 +1,6 @@
 class Cotation < ApplicationRecord
+  include Discard::Model
+  
   belongs_to :adherent
   has_many :cotation_lignes
 
@@ -11,4 +13,8 @@ class Cotation < ApplicationRecord
 
   validates :ref, :intitulé, :statut, presence: true
 
+  before_validation do 
+    self.ref = "#{ Date.today.year }-#{ Cotation.where("updated_at like '#{ Date.today.year }%'").count + 1 }"  
+  end
+  
 end
