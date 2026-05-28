@@ -19,7 +19,7 @@ ActiveAdmin.register Adherent do
   config.create_another = true
 
   # Add or remove filters to toggle their visibility
-  filter :id
+  # filter :id
   filter :nom_ville, as: :select, collection: proc { Adherent.pluck(:nom_ville).uniq.sort }
   filter :nom_contact
   filter :email
