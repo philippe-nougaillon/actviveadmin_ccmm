@@ -11,7 +11,8 @@ ActiveAdmin.register Adherent do
   # end
 
   # For security, limit the actions that should be available
-  actions :all, except: [:destroy]
+  #actions :all, except: [:destroy]
+  actions :all
 
   # default sort order 
   config.sort_order = 'nom_ville_asc'
