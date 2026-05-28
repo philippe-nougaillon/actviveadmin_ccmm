@@ -16,7 +16,8 @@ ActiveAdmin.register Prestation do
   menu label: page_title
 
   # For security, limit the actions that should be available
-  actions :all, except: [:destroy]
+  # actions :all, except: [:destroy]
+  actions :all
 
   config.create_another = true
 
